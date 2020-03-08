@@ -21,9 +21,10 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.verify_password(form.password.data):
             login_user(user)
-            flash('用户登录成功')
+            flash('用户登录成功', category='success')
             return redirect(url_for('auth.index'))
         else:
+            flash('用户登录失败', category='error')
             return redirect(url_for('auth.login'))
 
     return render_template('auth/login.html', form=form)
@@ -33,7 +34,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('用户注销成功')
+    flash('用户注销成功', category='success')
     return redirect(url_for('auth.index'))
 
 
@@ -46,6 +47,6 @@ def register():
         user.email = form.email.data
         user.password = form.password.data
         db.session.add(user)
-        flash('注册成功')
+        flash('注册成功', category='success')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', form=form)

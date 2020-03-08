@@ -8,18 +8,30 @@ class RegisterationForm(FlaskForm):
     email = StringField(u'电子邮箱', validators=[
         DataRequired(), Length(1, 20),
         Email(message=u'邮箱格式不正确')
-    ])
+    ], render_kw={
+        'class': 'layui-input',
+        'placeholder': '电子邮箱'
+    })
     username = StringField('用户名', validators=[
         DataRequired(), Length(1, 15),
         Regexp('^\w*$', message='用户名只能以字母数字或者下划线开头')
-    ])
+    ], render_kw={
+        'class': 'layui-input',
+        'placeholder': '用户名'
+    })
     password = PasswordField('密码', validators=[
         DataRequired()
-    ])
+    ], render_kw={
+        'class': 'layui-input',
+        'placeholder': '密码'
+    })
     repassword = PasswordField('确认密码', validators=[
         DataRequired(), EqualTo('password', message='密码不一致')
 
-    ])
+    ], render_kw={
+        'class': 'layui-input',
+        'placeholder': '确认密码'
+    })
     submit = SubmitField('注册')
 
     def validate_email(self, field):
@@ -36,8 +48,14 @@ class LoginForm(FlaskForm):
     email = StringField(u'电子邮箱', validators=[
         DataRequired(), Length(1, 20),
         Email(message=u'邮箱格式不正确')
-    ])
+    ], render_kw={
+        'class': 'layui-input',
+        'placeholder': '电子邮箱'
+    })
     password = PasswordField('密码', validators=[
         DataRequired()
-    ])
+    ], render_kw={
+        'class': 'layui-input',
+        'placeholder': '密码'
+    })
     submit = SubmitField('注册')
