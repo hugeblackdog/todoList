@@ -1,7 +1,7 @@
 {% extends 'bootstrap/base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
-{% block title %}用户注册界面{% endblock %}
+{% block title %}用户登录界面{% endblock %}
 {% block navbar %}
     <ul class="nav navbar-nav navbar-right ">
         {% if current_user.is_authenticated %}
@@ -9,17 +9,18 @@
         {% else %}
             <li><a href="{{ url_for('auth.login') }}">登录</a></li>
         {% endif %}
+        <li><a href="{{ url_for('auth.register') }}">注册</a></li>
         {% for message in get_flashed_messages() %}
 
-            <div class="alert alert-warning alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <strong>Warning!</strong> {{ message }}
-            </div>
-        {% endfor %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> {{ message }}
+        </div>
+    {% endfor %}
     </ul>
 {% endblock %}
 {% block content %}
-    <h1 style="color:green">用户注册</h1>
+    <h1 style="color:green">用户登录</h1>
     {{ wtf.quick_form(form) }}
 {% endblock %}

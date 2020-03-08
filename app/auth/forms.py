@@ -30,3 +30,14 @@ class RegisterationForm(FlaskForm):
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('用户名已经占用.')
+
+
+class LoginForm(FlaskForm):
+    email = StringField(u'电子邮箱', validators=[
+        DataRequired(), Length(1, 20),
+        Email(message=u'邮箱格式不正确')
+    ])
+    password = PasswordField('密码', validators=[
+        DataRequired()
+    ])
+    submit = SubmitField('注册')
