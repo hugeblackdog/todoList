@@ -4,7 +4,11 @@ from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 
 from config import config
+from flask_login import LoginManager
 
+login_manager = LoginManager()
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'auth.login'
 bootstrap = Bootstrap()
 mail = Mail()
 db = SQLAlchemy()
@@ -27,5 +31,7 @@ def create_app(config_name='development'):
 
     from app.todo import todo
     app.register_blueprint(todo, url_prefix='/todo')
+
+    login_manager.init_app(app)
 
     return app

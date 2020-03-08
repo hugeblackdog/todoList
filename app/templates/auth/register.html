@@ -1,0 +1,18 @@
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}用户注册界面{% endblock %}
+{% block navbar %}
+    <ul class="nav navbar-nav navbar-right ">
+        {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('auth.logout') }}">注销</a></li>
+        {% else %}
+            <li><a href="{{ url_for('auth.login') }}">登录</a></li>
+        {% endif %}
+        <p style="color: red">{{ get_flashed_messages() }}</p>
+    </ul>
+{% endblock %}
+{% block content %}
+    <h1 style="color:green">用户注册</h1>
+    {{ wtf.quick_form(form) }}
+{% endblock %}
