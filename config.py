@@ -9,8 +9,6 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'westos secret key'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    FLASKY_MAIL_SUBJECT_PREFIX = '[西部开源]'
-    FLASKY_MAIL_SENDER = '15094087934@163.com'
 
     @staticmethod
     def init_app(self):
@@ -24,9 +22,10 @@ class DevelopmentConfig(Config):
     # 启用了调试支持,服务器会在代码修改后自动重新载入,并在发生错误时提供一个相当有用的调试器。
     DEBUG = True
     MAIL_SERVER = 'smtp.163.com'
-    MAIL_PORT = '465'
-    MAIL_USE_TLS = True
-    MAIL_USERNAME = '15094087934'
+    MAIL_PORT = '25'
+    # MAIL_USE_TLS = True
+    MAIL_USERNAME = '15094087934@163.com'
+
     MAIL_PASSWORD = 'centos123'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'data-dev.sqlite')
 
