@@ -10,3 +10,8 @@ def add():
 @todo.route('/delete')
 def delete():
     return 'todo delete'
+
+
+@todo.route('/')
+def index():
+    return 'todo index'

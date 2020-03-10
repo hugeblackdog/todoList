@@ -8,7 +8,9 @@
 <p>您好！</p>
 <p>
     欢迎使用任务清单管理系统：{{ user.username }}<br>
-    请点击以下链接来确认身份:<a href="#">{{ token }}</a>
+    请点击以下链接来确认身份:<a href="{{ url_for('auth.confirm',token =token,_external=True) }}">
+    {{ url_for('auth.confirm',token =token,_external=True) }}
+</a>
 </p>
 
 </body>
