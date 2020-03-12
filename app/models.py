@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import current_app
 from itsdangerous import TimedJSONWebSignatureSerializer
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -14,6 +16,16 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     confirmed = db.Column(db.Boolean, default=False)
+    name = db.Column(db.String(64))
+    # 用户的真实姓名
+    location = db.Column(db.String(64))  # 所在地
+    about_me = db.Column(db.Text())  # 自我介绍
+
+    # 注册日期
+    # default 参数可以接受函数作为默认值,
+    # 所以每次生成默认值时,db.Column() 都会调用指定的函数。
+    create_time = db.Column(db.DateTime(), default=datetime.utcnow)
+    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
 
     @property
     def password(self):
@@ -46,6 +58,11 @@ class User(UserMixin, db.Model):
         self.confirmed = True
         db.session.add(self)
         return True
+
+    def ping(self):
+        # 更新最后一次访问时间
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
 
     def __repr__(self):
         return '<User % r>' % self.username

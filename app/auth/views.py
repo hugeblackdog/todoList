@@ -22,6 +22,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.verify_password(form.password.data):
             login_user(user)
+            user.ping()
             flash('用户登录成功', category='success')
             return redirect(url_for('todo.index'))
         else:
