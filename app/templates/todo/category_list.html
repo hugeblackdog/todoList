@@ -1,0 +1,58 @@
+{% extends 'bootstrap/base.html' %}
+
+
+{% block title %}
+    任务清单列表
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                {% include 'flash.html' %}
+                <table class="table table-hover">
+                    <tr>
+                        <th>分类</th>
+                        <th>该分类内容</th>
+                        <th>分类创建时间</th>
+                    </tr>
+                    {% for category in categoryPageObj.items %}
+                        <tr>
+                            <th>{{ category.name }}</th>
+                            <th>
+                                <ul>
+                                    {% for todo in category.todos %}
+                                        <li>{{ todo.content }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </th>
+                            <th>{{ category.add_time }}</th>
+                        </tr>
+                    {% endfor %}
+
+
+                </table>
+
+
+                {% if categoryPageObj.has_prev %}
+                    <a href="{{ url_for('todo.category_list') }}?page={{ categoryPageObj.prev_num }}">上一页</a>
+                {% endif %}
+                {% for i in categoryPageObj.iter_pages() %}
+                    <a href="{{ url_for('todo.category_list') }}?page={{ i }}">
+
+                        {% if i %}
+                            {{ i }}
+
+                        {% else %}
+                            ...
+                        {% endif %}
+                    </a>
+                {% endfor %}
+                {% if categoryPageObj.has_next %}
+                    <a href="{{ url_for('todo.category_list') }}?page={{ categoryPageObj.next_num }}">下一页</a>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

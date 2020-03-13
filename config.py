@@ -9,6 +9,7 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'westos secret key'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    PRE_PAGE = 2
 
     @staticmethod
     def init_app(self):
