@@ -9,12 +9,15 @@ from .. import db
 from ..models import Todo, Category
 
 
-@todo.route('/add', methods=['GET', 'POST'])
+@todo.route('/add', methods=['POST'])
 @login_required
 def add():
+    print(request.data)
+    print("*" * 10)
     form = AddTodoForm()
     if form.validate_on_submit():
         content = form.content.data
+        print(content)
         category = form.category.data
         todo = Todo(content=content,
                     category_id=category,
@@ -22,8 +25,6 @@ def add():
         db.session.add(todo)
         flash('任务添加添加成功', category='success')
         return redirect(url_for('todo.list'))
-
-    return render_template('todo/add.html', form=form)
 
 
 @todo.route('edit/<int:id>', methods=['GET', 'POST'])
@@ -55,12 +56,13 @@ def delete(id):
 @todo.route('/list/')
 @login_required
 def list():
+    form = AddTodoForm()
     page = int(request.args.get('page', 1))
     todoPageObj = Todo.query.filter_by(user_id=current_user.id).paginate(
         page, per_page=current_app.config['PRE_PAGE']
     )
     # print(todoPageObj)
-    return render_template('todo/list.html', todoPageObj=todoPageObj)
+    return render_template('todo/list.html', todoPageObj=todoPageObj, form=form)
 
 
 @todo.route('/undo/<int:id>')
@@ -96,14 +98,14 @@ def add_categories():
     return render_template('todo/add_category.html', form=form)
 
 
-# 查看当前用户的各个分类下的任务
-@todo.route('/categories/list')
-@login_required
-def category_list():
-    page = int(request.args.get('page', 1))
-    categoryPageObj = Category.query.filter_by(
-        user_id=current_user.id).paginate(
-        # 在config.py文件中有设置;
-        page, per_page=current_app.config['PRE_PAGE'])
-    return render_template('todo/category_list.html',
-                           categoryPageObj=categoryPageObj)
+# # 查看当前用户的各个分类下的任务
+# @todo.route('/categories/list')
+# @login_required
+# def category_list():
+#     page = int(request.args.get('page', 1))
+#     categoryPageObj = Category.query.filter_by(
+#         user_id=current_user.id).paginate(
+#         # 在config.py文件中有设置;
+#         page, per_page=current_app.config['PRE_PAGE'])
+#     return render_template('todo/category_list.html',
+#                            categoryPageObj=categoryPageObj)

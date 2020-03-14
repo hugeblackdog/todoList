@@ -1,69 +1,110 @@
-{% extends 'bootstrap/base.html' %}
-
-
-{% block title %}
-    任务清单列表
-{% endblock %}
+{% extends 'base.html' %}
+{% block title %}任务清单{% endblock %}
+<br>
+<br>
+<br>
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1">
-                {% include 'flash.html' %}
-                <table class="table table-hover">
-                    <tr>
-                        <th>编号</th>
-                        <th>任务内容</th>
-                        <th>任务创建时间</th>
-                        <th>分类名称</th>
-                        <th>状态</th>
-                        <th>其他</th>
-                    </tr>
-                    {% for todo in todoPageObj.items %}
-                        <tr>
-                            <td>{{ todo.id }}</td>
-                            <td>{{ todo.content }}</td>
-                            <td>{{ todo.add_time }}</td>
-                            <td>{{ todo.category.name }}</td>
-                            <td>
-                                {% if todo.status %}
-                                    <a href="{{ url_for('todo.undo', id=todo.id) }}">已完成</a>
-                                {% else %}
-                                    <a href="{{ url_for('todo.done', id=todo.id) }}">未完成</a>
-                                {% endif %}
-
-                            </td>
-                            <td>
-
-                                <a href="{{ url_for('todo.edit', id=todo.id) }}">编辑</a>
-                                <a href="{{ url_for('todo.delete', id=todo.id) }}">删除</a>
-                            </td>
-                        </tr>
-
-                    {% endfor %}
+        {% include 'flash.html' %}
+        <h2 style="font-family: 仿宋">添加任务</h2>
+        <form action="{{ url_for('todo.add') }}" method="post">
+            <div class="col-lg-10,col-lg-offset-2l">
+                {{ form.hidden_tag() }}
+                {#            <div class="input-group">#}
+                {#                <input type="text" class="form-control">#}
+                <div class="col-lg-7">
+                    {{ form.content() }}
+                </div>
+                {#                <div class="input-group-btn">#}
+                {#                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"#}
+                {#                            aria-haspopup="true" aria-expanded="false">分类 <span class="caret"></span></button>#}
+                {#                    <ul class="dropdown-menu dropdown-menu-right">#}
+                {#                        {% for category in current_user.categories %}#}
+                {#                            <li><a href="#">{{ category.name }}</a></li>#}
+                {#                        {% endfor %}#}
+                {#                        <hr>#}
+                {#                        <li><a href="#">添加分类</a></li>#}
+                {#                    </ul>#}
+                <div class="col-lg-1 ">
+                    {{ form.category() }}
+                </div>
 
 
-                </table>
-
-                {% if todoPageObj.has_prev %}
-                    <a href="{{ url_for('todo.list') }}?page={{ todoPageObj.prev_num }}">上一页</a>
-                {% endif %}
-                {% for i in todoPageObj.iter_pages() %}
-                    <a href="{{ url_for('todo.list') }}?page={{ i }}">
-
-                        {% if i %}
-                            {{ i }}
-
-                        {% else %}
-                            ...
-                        {% endif %}
-                    </a>
-                {% endfor %}
-                {% if todoPageObj.has_next %}
-                    <a href="{{ url_for('todo.list') }}?page={{ todoPageObj.next_num }}">下一页</a>
-                {% endif %}
-
-
+                {#                    <button type="button" class="btn btn-default ">添加</button>#}
+                <div class="col-lg-3 col-lg-offset-1 ">
+                    {{ form.submit() }}
+                </div>
+                {#                </div><!-- /btn-group -->#}
+                {#            </div><!-- /input-group -->#}
             </div>
-        </div>
+        </form>
+
     </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div class="container">
+        <table class="table table-hover">
+            <caption id='caption-style'>任务清单</caption>
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>任务内容</th>
+                <th>创建时间</th>
+                <th>所属分类</th>
+                <th>完成状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for todo in todoPageObj.items %}
+                <tr>
+                    <td>{{ todo.id }}</td>
+                    <td>{{ todo.content }}</td>
+                    <td>{{ todo.add_time }}</td>
+                    <td>{{ todo.category.name }}</td>
+                    <td>
+                        {% if todo.status %}
+                            <a href="{{ url_for('todo.undo',id = todo.id) }}"><span
+                                    class="glyphicon glyphicon-ok status-success"></span></a>
+                        {% else %}
+                            <a href="{{ url_for('todo.done',id = todo.id) }}"><span
+                                    class="glyphicon glyphicon-remove status-fail"></span></a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('todo.edit',id = todo.id) }}"><span class=" glyphicon glyphicon-edit "
+                                                                                style="color: black"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{{ url_for('todo.delete',id= todo.id) }}"><span
+                                class="glyphicon glyphicon-remove-circle" style="color: black"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br><br>
+    <br>
+    <hr>
+
+    <br>
+    <nav aria-label="paginate-part">
+        <ul class="pager">
+            {% if todoPageObj.has_prev %}
+                <li><a href="{{ url_for('todo.list') }}?page={{ todoPageObj.prev_num }}">上一页</a></li>
+            {% else %}
+                <li class="disabled"><a href="#">上一页</a></li>
+            {% endif %}
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {% if todoPageObj.has_next %}
+                <li><a href="{{ url_for('todo.list') }}?page={{ todoPageObj.next_num }}">下一页</a></li>
+            {% else %}
+                <li class="disabled"><a href="#">下一页</a></li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}

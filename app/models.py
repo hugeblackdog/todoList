@@ -5,7 +5,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login_manager
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 
 '''
 角色：用户 1：N
@@ -72,6 +72,30 @@ class User(UserMixin, db.Model):
         # 更新最后一次访问时间
         self.last_seen = datetime.utcnow()
         db.session.add(self)
+
+    # 计算当前用户的任务数目
+    def todo_sumCount(self):
+        todos = Todo.query.filter_by(user_id=current_user.id)
+        i = 0
+        for todo in todos:
+            i += 1
+        return i
+
+    def todo_doneCount(self):
+        todos = Todo.query.filter_by(user_id=current_user.id)
+        i = 0
+        for todo in todos:
+            if todo.status == True:
+                i += 1
+        return i
+
+    def todo_undoCount(self):
+        todos = Todo.query.filter_by(user_id=current_user.id)
+        i = 0
+        for todo in todos:
+            if todo.status != True:
+                i += 1
+        return i
 
     def __repr__(self):
         return '<User % r>' % self.username

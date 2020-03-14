@@ -6,7 +6,7 @@ from flask import render_template, redirect, url_for, flash, current_app, reques
 
 from .send_mail import send_mail
 from .. import db
-from ..models import User
+from ..models import User, Todo
 from .forms import LoginForm
 
 
