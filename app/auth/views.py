@@ -78,6 +78,7 @@ def confirm(token):
 @auth.before_app_request
 def before_request():
     # 用户已登录但未认证，访问的是资源路径的时候，返回未认证页面
+    # print(request.endpoint)
     if current_user.is_authenticated \
             and not current_user.confirmed \
             and request.endpoint[:5] != 'auth.' \
@@ -86,6 +87,7 @@ def before_request():
 
 
 @auth.route('/unconfirmed')
+@login_required
 def unconfirmed():
     # 如果当前用户是匿名用户或者已经验证的用户, 则访问主页, 否则进入未验证界面;
     if current_user.is_anonymous or current_user.confirmed:
@@ -107,4 +109,4 @@ def resend_confirmation():
         return redirect(url_for('auth.register'))
     else:
         flash('新的平台验证消息已经发送到你的邮箱, 请确认后登录.', category='success')
-        return redirect(url_for('todo.list'))
+        return redirect(url_for('auth.login'))

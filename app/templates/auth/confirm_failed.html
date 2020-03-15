@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'bootstrap/base.html' %}
+{% block title %}确认邮件失败{% endblock %}
+{% block content %}
+    <div class="alert alert-warning col-lg-6 col-lg-offset-4" role="alert">
+        <p>尊敬的用户:{{ current_user.username }}</p><br>
+        <span>你好, 邮箱确认失败。</span><br>
+        <a href="{{ url_for('auth.resend_confirmation' ) }} " class=" alert-link">再次发送确认
+            邮件</a>
+    </div>
 
-<p>尊敬的用户:</p>
-你好, 邮箱确认失败。
-<a href="{{ url_for('auth.resend_confirmation', _external=True ) }}">再次发送确认
-    邮件</a>
 
-</body>
-</html>
+{% endblock %}
