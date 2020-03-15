@@ -109,3 +109,19 @@ def add_categories():
 #         page, per_page=current_app.config['PRE_PAGE'])
 #     return render_template('todo/category_list.html',
 #                            categoryPageObj=categoryPageObj)
+
+
+@todo.route('/checkDone')
+@login_required
+def checkDone():
+    todos = Todo.query.filter_by(user_id=current_user.id, status=True).all()
+    # print(todos)
+    return render_template('todo/list_done.html', todos=todos)
+
+
+@todo.route('/checkUndo')
+@login_required
+def checkUndo():
+    todos = Todo.query.filter_by(user_id=current_user.id, status=False).all()
+    # print(todos)
+    return render_template('todo/list_undo.html', todos=todos)

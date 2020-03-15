@@ -93,14 +93,14 @@
                 <div class="layui-card-body ">
                     <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
                         <li class="layui-col-md2 layui-col-xs6">
-                            <a href="javascript:;" class="x-admin-backlog-body">
+                            <a href="{{ url_for('todo.list') }}" class="x-admin-backlog-body">
                                 <h3>任务数</h3>
                                 <p>
                                     <cite>{{ current_user.todo_sumCount() }}</cite></p>
                             </a>
                         </li>
                         <li class="layui-col-md2 layui-col-xs6">
-                            <a href="javascript:;" class="x-admin-backlog-body">
+                            <a href="{{ url_for('todo.checkDone') }}" class="x-admin-backlog-body">
                                 <h3>已完成任务数</h3>
                                 <p>
 
@@ -108,7 +108,7 @@
                             </a>
                         </li>
                         <li class="layui-col-md2 layui-col-xs6">
-                            <a href="javascript:;" class="x-admin-backlog-body">
+                            <a href="{{ url_for('todo.checkUndo') }}" class="x-admin-backlog-body">
                                 <h3>未完成任务数</h3>
                                 <p>
                                     <cite>{{ current_user.todo_undoCount() }}</cite></p>

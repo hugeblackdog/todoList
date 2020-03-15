@@ -22,6 +22,7 @@ def get_userInfo(id):
 
 
 @user.route('/editInfo', methods=['GET', 'POST'])
+@login_required
 def edit_Info():
     form = editUserInfoForm()
     if form.validate_on_submit():
@@ -41,6 +42,7 @@ def edit_Info():
 
 
 @user.route('/changePwd', methods=['GET', 'POST'])
+@login_required
 def changePassword():
     form = changePasswordForm()
     print('HHHHHHHHHH')
