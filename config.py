@@ -50,6 +50,8 @@ class ProductionConfig(Config):
     MAIL_SERVER = 'smtp.163.com'
     MAIL_PORT = '25'
     # MAIL_USE_TLS = True
+    # MAIL_PORT = "587"
+    MAIL_USE_TLS = True
     MAIL_USERNAME = '15094087934@163.com'
 
     MAIL_PASSWORD = 'centos123'

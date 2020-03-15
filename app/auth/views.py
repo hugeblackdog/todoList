@@ -78,7 +78,9 @@ def confirm(token):
 @auth.before_app_request
 def before_request():
     # 用户已登录但未认证，访问的是资源路径的时候，返回未认证页面
+    print('************')
     print(request.endpoint)
+    print('************')
     if current_user.is_authenticated \
             and not current_user.confirmed \
             and request.endpoint[:5] != 'auth.' \
