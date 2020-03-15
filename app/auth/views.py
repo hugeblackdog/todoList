@@ -51,6 +51,7 @@ def register():
         db.session.add(user)
         # 获得验证信息
         token = user.generate_confirmation_token()
+        # print(user.email)
         send_mail(user.email, '欢迎使用任务清单管理系统', 'auth/confirm',
                   user=user, token=token
                   )

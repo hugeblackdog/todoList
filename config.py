@@ -44,7 +44,17 @@ class ProductionConfig(Config):
     """
     生产环境的配置信息
     """
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'data.sqlite')
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    PRE_PAGE = 5
+    MAIL_SERVER = 'smtp.163.com'
+    MAIL_PORT = '25'
+    # MAIL_USE_TLS = True
+    MAIL_USERNAME = '15094087934@163.com'
+
+    MAIL_PASSWORD = 'centos123'
+    SQLALCHEMY_DATABASE_URI = 'mysql://flask:centos@101.132.41.88/todoList'
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'data.sqlite')
 
 
 config = {
