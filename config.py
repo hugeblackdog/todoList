@@ -48,10 +48,15 @@ class ProductionConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     PRE_PAGE = 5
     MAIL_SERVER = 'smtp.163.com'
-    # MAIL_PORT = '25'
+     MAIL_PORT = '25'
     # MAIL_USE_TLS = True
-	MAIL_PORT = "587"
-	MAIL_USE_TLS = True
+<<<<<<< HEAD
+#	MAIL_PORT = "587"
+#	MAIL_USE_TLS = True
+=======
+    # MAIL_PORT = "587"
+    MAIL_USE_TLS = True
+>>>>>>> bf1e6452b62b3737bcc3fc18fc0d3fb8008c87af
     MAIL_USERNAME = '15094087934@163.com'
 
     MAIL_PASSWORD = 'centos123'
