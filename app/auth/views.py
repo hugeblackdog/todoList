@@ -81,9 +81,9 @@ def before_request():
 
     # print(request.endpoint)
 
-    print('************')
-    print(request.endpoint)
-    print('************')
+    # print('************')
+    # print(request.endpoint)
+    # print('************')
 
     if current_user.is_authenticated \
             and not current_user.confirmed \
@@ -115,4 +115,5 @@ def resend_confirmation():
         return redirect(url_for('auth.register'))
     else:
         flash('新的平台验证消息已经发送到你的邮箱, 请确认后登录.', category='success')
+        print('邮件发送成功')
         return redirect(url_for('auth.login'))

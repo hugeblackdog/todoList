@@ -48,14 +48,10 @@ class ProductionConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     PRE_PAGE = 5
     MAIL_SERVER = 'smtp.163.com'
-    MAIL_PORT = '25'
-    # MAIL_USE_TLS = True
-
-    # MAIL_PORT = "587"
-    MAIL_USE_TLS = True
-
+    MAIL_PORT = '465'
+    MAIL_USE_SSL = True
+    MAIL_USE_TLS = False
     MAIL_USERNAME = '15094087934@163.com'
-
     MAIL_PASSWORD = 'centos123'
     SQLALCHEMY_DATABASE_URI = 'mysql://flask:centos@101.132.41.88/todoList'
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'data.sqlite')
