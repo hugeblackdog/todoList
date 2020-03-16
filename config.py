@@ -53,12 +53,12 @@ class ProductionConfig(Config):
     # MAIL_USE_TLS = False
     # MAIL_USERNAME = '15094087934@163.com'
     # MAIL_PASSWORD = 'centos123'
-    MAIL_SERVER = 'smtp.aliyun.com'
-    MAIL_PORT = '25'
+    MAIL_SERVER = 'smtp.qq.com'
+    MAIL_PORT = '587'
     MAIL_USE_TLS = True
     # MAIL_USE_SSL = True
-    MAIL_USERNAME = 'todolist@aliyun.com'
-    MAIL_PASSWORD = 'Sc135790'
+    MAIL_USERNAME = '904446156@qq.com'
+    MAIL_PASSWORD = 'uajrtyymuibqbfdg'
 
     SQLALCHEMY_DATABASE_URI = 'mysql://flask:centos@101.132.41.88/todoList'
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'data.sqlite')
