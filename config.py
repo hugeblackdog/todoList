@@ -54,8 +54,9 @@ class ProductionConfig(Config):
     # MAIL_USERNAME = '15094087934@163.com'
     # MAIL_PASSWORD = 'centos123'
     MAIL_SERVER = 'smtp.aliyun.com'
-    MAIL_PORT = '465'
-    MAIL_USE_SSL = True
+    MAIL_PORT = '25'
+    MAIL_USE_TLS = True
+    # MAIL_USE_SSL = True
     MAIL_USERNAME = 'todolist@aliyun.com'
     MAIL_PASSWORD = 'Sc135790'
 
